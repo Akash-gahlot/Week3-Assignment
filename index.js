@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const PORT = 3000;
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
 
 let toDos = [
   { id: 121, title: "TV", description: "to watch movie" },
@@ -15,6 +18,11 @@ app.get("/", (req, resp) => {
 });
 app.get("/todo", (req, resp) => {
   resp.send(toDos);
+});
+app.post("/addtodo", (req, resp) => {
+  console.log(req.body.title);
+  console.log(req.body.description);
+  resp.send("Data received successfully");
 });
 app.listen(PORT, () => {
   console.log(`Server started at ${PORT}`);
